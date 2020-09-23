@@ -1,0 +1,7 @@
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\obj\Debug\Expendedora.csprojAssemblyReference.cache
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\obj\Debug\Expendedora.csproj.CoreCompileInputs.cache
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\bin\Debug\Expendedora.exe.config
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\bin\Debug\Expendedora.exe
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\bin\Debug\Expendedora.pdb
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\obj\Debug\Expendedora.exe
+C:\Users\Mati\Desktop\CAI\202002C\Expendendora\Expendedora\obj\Debug\Expendedora.pdb
