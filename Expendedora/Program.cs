@@ -14,10 +14,10 @@ namespace Expendedora
 
             const string EncenderMaquina = "EM";
             const string ListarLatas = "LL";
-            const string InsertarLata = "IL";
-            const string ElegirLata = "EL";
-            const string ConocerBalance = "CB";
-            const string ConocerStock = "CS";
+            const string insertarLata = "IL";
+            const string elegirLata = "EL";
+            const string conocerBalance = "CB";
+            const string conocerStock = "CS";
             const string Salir = "S";
 
             string opcion = "";
@@ -28,58 +28,137 @@ namespace Expendedora
             {
                 opcion = ServValidac.PedirStrNoVac("Ingrese opción:\n"
                     + EncenderMaquina + ": Encender Maquina\n"
-                    + InsertarLata + ": Insertar lata\n"
+                    + insertarLata + ": Insertar lata\n"
                     + ListarLatas + ": Listar lata\n"
-                    + ElegirLata + ": Elegir Lata\n"
-                    + ConocerBalance + ": Conocer Balance\n"
-                    + ConocerStock + ": Conocer Stock\n"
-                    + Salir + ": Salir", exp);
+                    + elegirLata + ": Elegir Lata\n"
+                    + conocerBalance + ": Conocer Balance\n"
+                    + conocerStock + ": Conocer Stock\n"
+                    + Salir + ": Salir");
 
-                switch (opcion)
-                {
-                    case EncenderMaquina:
-                        exp.EncenderMaquina();
+                    switch (opcion)
+                    {
+                        case EncenderMaquina:
+                        if (exp.GetEstadoMaquina == true)
+                        {
+                            Console.WriteLine("LA MAQUINA YA SE ENCUENTRA ENCENDIDA, REALICE UNA ACCION");
+                        }
+                        else
+                        {
+                            Console.WriteLine(exp.EncenderMaquina());
+                        }
                         break;
-                    case ListarLatas:
-                        Console.WriteLine(exp.ListarLata());
+                        case ListarLatas:
+                        if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
+                        {
+                            Console.WriteLine("no puede utilizar la maquina sin prenderla");
+                        }
+                        else
+                        {
+                            Console.WriteLine(exp.ListarLata());
+                        }
+                            break;
+                        case insertarLata:
+                        if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
+                        {
+                            Console.WriteLine("no puede utilizar la maquina sin prenderla");
+                        }
+                        else
+                        {
+                            InsertarLata(exp);
+                        }
+                            break;
+
+                        case elegirLata:
+                        if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
+                        {
+                            Console.WriteLine("no puede utilizar la maquina sin prenderla");
+                        }
+                        else
+                        {
+                           // Elegir(exp);
+                        }
                         break;
-                     /*case InsertarLata:
-                        Emitir(CtrMillas.TipoVuelo);
+                        case conocerBalance:
+                        if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
+                        {
+                            Console.WriteLine("no puede utilizar la maquina sin prenderla");
+                        }
+                        else
+                        {
+                            ObtenerBalance(exp);
+                        }
                         break;
-                    
-                    case ElegirLata:
-                        Emitir(CtrMillas.TipoCrucero);
+                        case conocerStock:
+                        if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
+                        {
+                            Console.WriteLine("no puede utilizar la maquina sin prenderla");
+                        }
+                        else
+                        {
+                            MostrarStock(exp);
+                        }
                         break;
-                    case ConocerBalance:
-                        Emitir(CtrMillas.TipoVouSalon);
-                        break;
-                    case ConocerStock:
-                        Emitir(CtrMillas.TipoVouSalon);
-                        break;*/
-                    case Salir:
-                        break;
-                    default:
-                        Console.WriteLine("Opción no existente");
-                        break;
-                }
+                        case Salir:
+                            break;
+                        default:
+                            Console.WriteLine("Opción no existente");
+                            
+                            break;
+                    }
 
             } while (opcion != Salir);
         }
-       /* public static void IngresarLata(Expendedora exp)
+       private static void InsertarLata(Expendedora exp)
         {
-            exp.AgregarLata();
+            DatoLata datolata = new DatoLata();
+            Console.WriteLine(exp.ListarLata());
+            bool encuentracodigo = false;
+
+
+            do
+            {
+                encuentracodigo = false;
+                string codigo = ServValidac.PedirStrNoVac("Ingrese el codigo de la lata disponible");
+                encuentracodigo = exp.ValidoCodigo(codigo);
+                if (!encuentracodigo)
+                {
+                    Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
+
+                }
+                else
+                {
+                    double precio = ServValidac.PedirDouble("Ingrese el precio de la lata");
+                    double volumen = ServValidac.PedirDouble("Ingrese el volumen de la lata");
+                    Lata lata = new Lata(codigo, datolata.SaborDato, datolata.NombreDato, precio, volumen);
+                    exp.AgregarLata(lata);
+                } 
+            } while (!encuentracodigo);
+
+
+
+
+
+
+
+
+
+            //}
+
+
+            //exp.AgregarLata();
         }
-        static void ExtraerLata(Expendedora exp)
+        private static void ExtraerLata(Expendedora exp)
         {
-            exp.ExtraerLata()
+           // exp.ExtraerLata()
         }
-        static void ObtenerBalanceLata()
+        private static void ObtenerBalance(Expendedora exp)
         {
 
         }
-        static void MostrarStock()
+        private static void MostrarStock(Expendedora exp)
         {
 
-        }*/
+        }
+        
     }
 }

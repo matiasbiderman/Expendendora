@@ -13,6 +13,8 @@ namespace Expendedora
         private double _dinero;
         private bool _encendida;
         private List<Lata> _latas;
+        private List<DatoLata> _datoslatas;
+        private bool llena;
 
         public Expendedora(string proveedor, int capacidad, double dinero, bool encendida)
         {
@@ -20,22 +22,17 @@ namespace Expendedora
             this._capacidad = capacidad;
             this._dinero = dinero;
             this._encendida = false;
-            
+            DatosLata();
         }
         public Expendedora()
         {
             this._encendida = false;
             this._latas = new List<Lata>();
+            llena = false;
+            this._datoslatas = new List<DatoLata>();
+            DatosLata();
         }
-        private void CargaInicialLata()
-        {
-            _latas.Add(new Lata("CO1", "Coca Cola Regular"));
-            _latas.Add(new Lata("CO2", "Coca Cola Zero"));
-            _latas.Add(new Lata("SP1", "Sprite Regular"));
-            _latas.Add(new Lata("SP2", "Sprite Zero"));
-            _latas.Add(new Lata("FA1", "Fanta Regular"));
-            _latas.Add(new Lata("FA2", "Fanta Zero"));
-        }
+        
         
         public bool GetEstadoMaquina
         {
@@ -44,44 +41,80 @@ namespace Expendedora
                 return this._encendida;
             }
         }
-        public void EncenderMaquina()
+        public string EncenderMaquina() //mio
         {
             this._encendida = true;
+            return "LA MAQUINA ESTA ENCENDIDA,PUEDE EMPEZAR A OPERAR";
         }
-        public string ListarLata()
+        public string ListarLata() //mio
         {
             string lista = "";
-            CargaInicialLata();
-            foreach (Lata lat in _latas)
+            foreach (DatoLata dato in _datoslatas)
             {
-                lista = lista + lat.getCodigo() + " - " + lat.getNombre() + "\n";
+                lista = lista + dato.Codigodato + "\t" + dato.NombreDato + "\t" + dato.SaborDato + "\n";
             }
 
             return lista;
-               
         }
-        /* public void AgregarLata(Lata lata)
-         {
+        public bool ValidoCodigo(string codigo)
+        {
+            bool encuentra = false;
+            foreach (DatoLata dat in _datoslatas)
+            {
+                if(codigo == dat.Codigodato)
+                {
+                    encuentra = true;
+                }
+                else
+                {
+                    //ACA VA LA EXCEPCION 
+                }
+            }
+            return encuentra;
+        }
 
+         public void AgregarLata(Lata lata)
+         {
+            _latas.Add(lata);
+            foreach (Lata la in _latas)
+            {
+                Console.WriteLine(la.DevuelveLata());
+            }
+            this._capacidad--;
          }
-         public Lata ExtraerLata(string, double)
-         {
+        /* public Lata ExtraerLata(string cc, double xx)
+          {
 
-         }
-         public string GetBalance()
-         {
+          }
+          public string GetBalance()
+          {
 
-         }
-         public int GetCapacidadRestante()
-         {
+          }
+          public int GetCapacidadRestante()
+          {
 
-         }
+          }
+          */
+          public bool Estavacia()
+          {
+            
+            if (this._capacidad == 0)
+                llena = true;
+            else
+                llena = false;
 
-         public bool Estavacia()
-         {
-
-         }*/
-
+            return llena;
+          }
+          
+        private void DatosLata()
+        {
+            _datoslatas.Add(new DatoLata("CO1", "Coca Cola", "Regular"));
+            _datoslatas.Add(new DatoLata("CO2", "Coca Cola", "Zero"));
+            _datoslatas.Add(new DatoLata("SP1", "Sprite", "Regular"));
+            _datoslatas.Add(new DatoLata("SP2", "Sprite", "Zero"));
+            _datoslatas.Add(new DatoLata("FA1", "Fanta", "Regular"));
+            _datoslatas.Add(new DatoLata("FA2", "Fanta", "Zero"));
+        }
 
     }
 }

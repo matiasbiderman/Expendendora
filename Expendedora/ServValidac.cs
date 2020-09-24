@@ -8,7 +8,7 @@ namespace Expendedora
 {
     static class ServValidac
     {
-        public static string PedirStrNoVac(string mensaje, Expendedora exp)
+        public static string PedirStrNoVac(string mensaje)
         {
 
             string valor;
@@ -20,12 +20,26 @@ namespace Expendedora
                 {
                     Console.WriteLine("ingrese una opcion valida");
                 }
-                if(valor != "" && valor != "EM" && !exp.GetEstadoMaquina)
-                {
-                    Console.WriteLine("no puede utilizar la maquina sin prenderla");
-                }
+            } while (valor == "");
+            return valor;
+        }
+        public static double PedirDouble(string mensaje)
+        {
 
-            } while (valor == "" || (valor != "EM" && !exp.GetEstadoMaquina));
+            double valor;
+            Console.WriteLine(mensaje);
+            do
+            {
+                if(!double.TryParse(Console.ReadLine(), out valor))
+                {
+                    valor = -1;
+                }
+                if (valor < 0)
+                {
+                    Console.WriteLine("ingrese una opcion valida");
+                }
+            } while (valor < 0);
+
             return valor;
         }
     }
