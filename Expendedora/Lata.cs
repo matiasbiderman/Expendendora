@@ -42,7 +42,7 @@ namespace Expendedora
         }
         public string DevuelveLata()
         {
-            return string.Format("Codi {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n", this._codigo, this._nombre, this._sabor, this._precio, this._volumen);
+            return string.Format("Codigo {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n", this._codigo, this._nombre, this._sabor, this._precio, this._volumen);
         }
         public override string ToString()
         {

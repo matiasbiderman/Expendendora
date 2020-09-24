@@ -115,24 +115,24 @@ namespace Expendedora
             bool encuentracodigo = false;
 
 
-            do
+           do
             {
                 encuentracodigo = false;
                 string codigo = ServValidac.PedirStrNoVac("Ingrese el codigo de la lata disponible");
-                encuentracodigo = exp.ValidoCodigo(codigo);
-                if (!encuentracodigo)
-                {
-                    Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
+                datolata = exp.ValidoCodigo(codigo);
+             if (datolata == null)
+             {
+                 Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
 
-                }
-                else
-                {
-                    double precio = ServValidac.PedirDouble("Ingrese el precio de la lata");
+             }
+             else
+             {
+                double precio = ServValidac.PedirDouble("Ingrese el precio de la lata");
                     double volumen = ServValidac.PedirDouble("Ingrese el volumen de la lata");
-                    Lata lata = new Lata(codigo, datolata.SaborDato, datolata.NombreDato, precio, volumen);
+                    Lata lata = new Lata(codigo, datolata.NombreDato, datolata.SaborDato, precio, volumen);
                     exp.AgregarLata(lata);
-                } 
-            } while (!encuentracodigo);
+              } 
+            } while (datolata == null);
 
 
 

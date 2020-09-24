@@ -56,21 +56,40 @@ namespace Expendedora
 
             return lista;
         }
-        public bool ValidoCodigo(string codigo)
+        public DatoLata ValidoCodigo(string codigo)
         {
+            DatoLata dato;
             bool encuentra = false;
-            foreach (DatoLata dat in _datoslatas)
+            int pos = 0;
+            for (int i = 0; i < _datoslatas.Count; i++)
             {
-                if(codigo == dat.Codigodato)
+                if (codigo == _datoslatas[i].Codigodato)
+                {
+                    pos = i;
+                    encuentra = true;
+                }
+                
+                
+            }
+            /*foreach (DatoLata dat in _datoslatas)
+            {
+                if (codigo == dat.Codigodato)
                 {
                     encuentra = true;
                 }
-                else
-                {
-                    //ACA VA LA EXCEPCION 
-                }
+                pos++;
             }
-            return encuentra;
+            */
+            if (encuentra)
+            {
+                dato = _datoslatas[pos];
+            }
+            else
+            {
+                dato = null;
+            }
+            
+            return dato;
         }
 
          public void AgregarLata(Lata lata)
