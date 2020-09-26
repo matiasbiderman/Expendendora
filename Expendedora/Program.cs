@@ -35,9 +35,9 @@ namespace Expendedora
                     + conocerStock + ": Conocer Stock\n"
                     + Salir + ": Salir");
 
-                    switch (opcion)
-                    {
-                        case EncenderMaquina:
+                switch (opcion)
+                {
+                    case EncenderMaquina:
                         if (exp.GetEstadoMaquina == true)
                         {
                             Console.WriteLine("LA MAQUINA YA SE ENCUENTRA ENCENDIDA, REALICE UNA ACCION");
@@ -47,7 +47,7 @@ namespace Expendedora
                             Console.WriteLine(exp.EncenderMaquina());
                         }
                         break;
-                        case ListarLatas:
+                    case ListarLatas:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
@@ -56,8 +56,8 @@ namespace Expendedora
                         {
                             Console.WriteLine(exp.ListarLata());
                         }
-                            break;
-                        case insertarLata:
+                        break;
+                    case insertarLata:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
@@ -66,19 +66,19 @@ namespace Expendedora
                         {
                             InsertarLata(exp);
                         }
-                            break;
+                        break;
 
-                        case elegirLata:
+                    case elegirLata:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
                         }
                         else
                         {
-                           // Elegir(exp);
+                            // Elegir(exp);
                         }
                         break;
-                        case conocerBalance:
+                    case conocerBalance:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
@@ -88,7 +88,7 @@ namespace Expendedora
                             ObtenerBalance(exp);
                         }
                         break;
-                        case conocerStock:
+                    case conocerStock:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
@@ -98,58 +98,58 @@ namespace Expendedora
                             MostrarStock(exp);
                         }
                         break;
-                        case Salir:
-                            break;
-                        default:
-                            Console.WriteLine("Opción no existente");
-                            
-                            break;
-                    }
+                    case Salir:
+                        break;
+                    default:
+                        Console.WriteLine("Opción no existente");
+
+                        break;
+                }
 
             } while (opcion != Salir);
         }
-       private static void InsertarLata(Expendedora exp)
+        private static void InsertarLata(Expendedora exp)
         {
             DatoLata datolata = new DatoLata();
+            Lata lata = new Lata();
             Console.WriteLine(exp.ListarLata());
             bool encuentracodigo = false;
 
-
-           do
+            do
             {
+                //ACA TIENEN QUE HABER EXCEPCION DEL CODIGO
                 encuentracodigo = false;
-                string codigo = ServValidac.PedirStrNoVac("Ingrese el codigo de la lata disponible");
-                datolata = exp.ValidoCodigo(codigo);
-             if (datolata == null)
-             {
-                 Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
+                if (exp.CapacidadDisponible())
+                {
+                    string codigo = ServValidac.PedirStrNoVac("Ingrese el codigo de la lata disponible");
+                    datolata = exp.ValidoCodigo(codigo);
 
-             }
-             else
-             {
-                double precio = ServValidac.PedirDouble("Ingrese el precio de la lata");
-                    double volumen = ServValidac.PedirDouble("Ingrese el volumen de la lata");
-                    Lata lata = new Lata(codigo, datolata.NombreDato, datolata.SaborDato, precio, volumen);
-                    exp.AgregarLata(lata);
-              } 
+                    if (datolata != null)
+                    {
+                        lata.Precio = ServValidac.PedirDouble("Ingrese el precio de la lata");
+                        lata.Volumen = ServValidac.PedirDouble("Ingrese el volumen de la lata");
+                        lata.Codigo = datolata.Codigodato;
+                        lata.Nombre = datolata.NombreDato;
+                        lata.Sabor = datolata.SaborDato;
+                        exp.AgregarLata(lata);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No hay capacidad para mas latas");
+                }
+
             } while (datolata == null);
 
-
-
-
-
-
-
-
-
-            //}
-
-
-            //exp.AgregarLata();
         }
         private static void ExtraerLata(Expendedora exp)
         {
-           // exp.ExtraerLata()
+            // exp.ExtraerLata()
         }
         private static void ObtenerBalance(Expendedora exp)
         {
@@ -159,6 +159,6 @@ namespace Expendedora
         {
 
         }
-        
+
     }
 }

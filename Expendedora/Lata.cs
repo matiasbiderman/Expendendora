@@ -14,15 +14,12 @@ namespace Expendedora
         private string _sabor;
         private double _precio;
         private double _volumen;
-
         
-      public Lata(string codigo, string nombre, string sabor, double precio, double volumen)
+      public Lata(string codigo, string nombre, string sabor)
         {
-            this._codigo = codigo;
-            this._nombre = nombre;
-            this._sabor = sabor;
-            this._precio=  precio;
-            this._volumen = volumen;
+            Codigo = codigo;
+            Nombre = nombre;
+            Sabor = sabor;
         }
         public Lata()
         {
@@ -32,18 +29,43 @@ namespace Expendedora
         {
 
         }*/
-        public string getCodigo()
+        public string Codigo
         {
-            return this._codigo;
+            get
+            { return this._codigo; }
+            set { this._codigo = value; }
         }
-        public string getNombre()
+        public string Sabor
         {
-            return this._nombre;
+            get
+            { return this._sabor; }
+            set { this._sabor = value; }
         }
-        public string DevuelveLata()
+        public double Precio
         {
-            return string.Format("Codigo {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n", this._codigo, this._nombre, this._sabor, this._precio, this._volumen);
+            get
+            { return this._precio; }
+            set { this._precio = value; }
         }
+        public double Volumen
+        {
+            get
+            { return this._volumen; }
+            set { this._volumen = value; }
+        }
+
+      
+        public string Nombre
+        {
+            get
+            { return this._nombre; }
+            set { this._nombre = value; }
+        }
+        /*public string DevuelveLata()
+        {
+            int stock = getStockxDato();
+            return string.Format("Codigo {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n Stock {5}", this._codigo, this._nombre, this._sabor, this._precio, this._volumen, stock);
+        }*/
         public override string ToString()
         {
             return string.Format("Nombre {0}\nSabor {1}\n$/L Precio por litro {0}", this._nombre, this._sabor, this._precio);

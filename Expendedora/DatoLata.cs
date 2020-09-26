@@ -11,7 +11,6 @@ namespace Expendedora
         private string _codigo;
         private string _nombre;
         private string _sabor;
-
        /* private string[] codigos = { "CO1", "CO2", "SP1", "SP2", "FA1", "FA2" };
         private string[] nombres = { "CO1", "CO2", "SP1", "SP2", "FA1", "FA2" };
         private string[] sabores = new string[6];*/
@@ -24,8 +23,8 @@ namespace Expendedora
 
         public DatoLata()
         {
-            
         }
+        
         public string Codigodato
         {
             get { return this._codigo; }
@@ -33,7 +32,6 @@ namespace Expendedora
             {
                 this._codigo = value;
             }
-            
         }
         public string NombreDato
         {

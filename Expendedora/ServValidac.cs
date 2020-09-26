@@ -15,7 +15,7 @@ namespace Expendedora
             Console.WriteLine(mensaje);
             do
             {
-                valor = Console.ReadLine().ToUpper();
+                valor = Console.ReadLine().ToUpper().Trim();
                 if (valor == "")
                 {
                     Console.WriteLine("ingrese una opcion valida");
