@@ -10,7 +10,6 @@ namespace Expendedora
     {
         public static string PedirStrNoVac(string mensaje)
         {
-
             string valor;
             Console.WriteLine(mensaje);
             do
@@ -25,7 +24,6 @@ namespace Expendedora
         }
         public static double PedirDouble(string mensaje)
         {
-
             double valor;
             Console.WriteLine(mensaje);
             do

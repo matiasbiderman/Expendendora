@@ -15,7 +15,7 @@ namespace Expendedora
             const string EncenderMaquina = "EM";
             const string ListarLatas = "LL";
             const string insertarLata = "IL";
-            const string elegirLata = "EL";
+            const string extraerLata = "EL";
             const string conocerBalance = "CB";
             const string conocerStock = "CS";
             const string Salir = "S";
@@ -30,7 +30,7 @@ namespace Expendedora
                     + EncenderMaquina + ": Encender Maquina\n"
                     + insertarLata + ": Insertar lata\n"
                     + ListarLatas + ": Listar lata\n"
-                    + elegirLata + ": Elegir Lata\n"
+                    + extraerLata + ": Extraer Lata\n"
                     + conocerBalance + ": Conocer Balance\n"
                     + conocerStock + ": Conocer Stock\n"
                     + Salir + ": Salir");
@@ -67,15 +67,14 @@ namespace Expendedora
                             InsertarLata(exp);
                         }
                         break;
-
-                    case elegirLata:
+                    case extraerLata:
                         if (opcion != EncenderMaquina && !exp.GetEstadoMaquina)
                         {
                             Console.WriteLine("no puede utilizar la maquina sin prenderla");
                         }
                         else
                         {
-                            // Elegir(exp);
+                            ExtraerLata(exp);
                         }
                         break;
                     case conocerBalance:
@@ -136,7 +135,6 @@ namespace Expendedora
                     else
                     {
                         Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
-
                     }
                 }
                 else
@@ -145,20 +143,51 @@ namespace Expendedora
                 }
 
             } while (datolata == null);
-
         }
         private static void ExtraerLata(Expendedora exp)
         {
-            // exp.ExtraerLata()
+            DatoLata datolata = new DatoLata();
+            Lata lata = new Lata();
+            Console.WriteLine(exp.ListarLata());
+            string codigo = ServValidac.PedirStrNoVac("Ingrese el codigo de la lata disponible");
+            datolata = exp.ValidoCodigo(codigo);
+
+            if (datolata != null)
+            {
+                if (exp.getStockByCodigo(codigo) > 0)
+                {
+                    double dinero = ServValidac.PedirDouble("Ingrese el dinero que tiene para pagar la lata");
+                    lata = exp.ExtraerLata(datolata.Codigodato, dinero);
+
+                    if (lata == null)
+                    {
+                        Console.WriteLine("No le alcanza el dinero, intente extraer nuevamente colocando el dinero correcto");
+                        //throw new Exception("No le alcanza el dinero");
+                    }
+                    else
+                    {
+                        
+                       Console.WriteLine("la lata que esta agarrand es " + lata.Codigo + " con un precio de " + lata.Precio);
+                        Console.WriteLine("el dinero acumulado por la expendedora es " + exp.Dinero);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Sin stock para " + codigo);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No se encuentra el codigo de lata solicitado, ingrese nuevamente");
+            }
         }
         private static void ObtenerBalance(Expendedora exp)
         {
-
+            Console.WriteLine(exp.GetBalance());
         }
         private static void MostrarStock(Expendedora exp)
         {
 
         }
-
     }
 }

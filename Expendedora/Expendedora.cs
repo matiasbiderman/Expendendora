@@ -9,13 +9,13 @@ namespace Expendedora
     public class Expendedora
     {
         private string _proveedor;
-        private const int _capacidad = 2;
+        private const int _capacidad = 3;
         private double _dinero;
         private bool _encendida;
         private List<Lata> _latas;
         private List<DatoLata> _datoslatas;
         private bool llena;
-       
+
         public Expendedora(string proveedor, double dinero, bool encendida)
         {
             this._proveedor = proveedor;
@@ -33,13 +33,19 @@ namespace Expendedora
             DatosLata();
         }
 
-
+        public double Dinero
+        {
+            get
+            { return this._dinero; }
+            set
+            {
+                this._dinero = value;
+            }
+        }
         public int Capacidad
         {
             get
-            {
-                return _capacidad;
-            }
+            { return _capacidad; }
         }
         public bool GetEstadoMaquina
         {
@@ -64,7 +70,7 @@ namespace Expendedora
         }
         public DatoLata ValidoCodigo(string codigo)
         {
-          //  DatoLata dato;
+            //  DatoLata dato;
             bool encuentra = false;
             int pos = 0;
             for (int i = 0; i < _datoslatas.Count; i++)
@@ -75,7 +81,6 @@ namespace Expendedora
                     return _datoslatas[i];
                 }
             }
-           
             return null;
         }
 
@@ -83,40 +88,75 @@ namespace Expendedora
         {
             return _latas.Where(l => l.Codigo == codigo).Count();
         }
-         public void AgregarLata(Lata lata)
-         {
-            //int stock = lata.Stock;
+        public void AgregarLata(Lata lata)
+        {
             _latas.Add(lata);
             Console.WriteLine(getStockByCodigo(lata.Codigo));
-         }
-         public bool CapacidadDisponible()
+        }
+        public bool CapacidadDisponible()
         {
             return Capacidad > _latas.Count;
         }
-        /* public Lata ExtraerLata(string cc, double xx)
-          {
+        public Lata conseguirUltimaLataStockXCodigo(string codigo)
+        {
+            Lata ultimaLata = new Lata();
+            foreach (Lata lataABuscar in _latas)
+            {
+                if (lataABuscar.Codigo == codigo)
+                {
+                    ultimaLata = lataABuscar;
+                }
+            }
+            return ultimaLata;
+        }
+        public Lata ExtraerLata(string codigo, double plata)
+        {
+            //Lata lata = null;
+            Lata latita = conseguirUltimaLataStockXCodigo(codigo);
 
-          }
+            //for (int i = 0; i < getStockByCodigo(codigo); i++)
+            //{
+                if (plata >= latita.Precio )
+                {
+                     int pos = _latas.FindLastIndex(delegate (Lata lata) {
+                        return lata.Codigo == codigo;
+                    });
+
+                    Dinero = Dinero + plata;
+                    //lata = _latas[i];
+                    _latas.RemoveAt(pos);
+                    Console.WriteLine(getStockByCodigo(codigo));
+                }
+                else
+                {
+                    latita = null;
+                }
+              
+            //}
+
+            return latita;
+        }
+        
           public string GetBalance()
           {
-
+            return "El dinero que tiene la expendedora es " + Dinero + " y tiene " + _latas.Count + " latas"; 
           }
-          public int GetCapacidadRestante()
+        /*  public int GetCapacidadRestante()
           {
 
           }
-          */
-          /*public bool Estavacia()
-          {
-            
-            if (this._capacidad == 0)
-                llena = true;
-            else
-                llena = false;
+          
+        public bool Estavacia()
+        {
 
-            return llena;
-          }
-          */
+          if (this._capacidad == 0)
+              llena = true;
+          else
+              llena = false;
+
+          return llena;
+        }
+        */
         private void DatosLata()
         {
             _datoslatas.Add(new DatoLata("CO1", "Coca Cola", "Regular"));

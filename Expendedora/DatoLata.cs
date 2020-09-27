@@ -11,9 +11,7 @@ namespace Expendedora
         private string _codigo;
         private string _nombre;
         private string _sabor;
-       /* private string[] codigos = { "CO1", "CO2", "SP1", "SP2", "FA1", "FA2" };
-        private string[] nombres = { "CO1", "CO2", "SP1", "SP2", "FA1", "FA2" };
-        private string[] sabores = new string[6];*/
+       
         public DatoLata(string codigo, string nombre, string sabor)
         {
             this._codigo = codigo;

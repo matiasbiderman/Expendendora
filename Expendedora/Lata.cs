@@ -54,23 +54,21 @@ namespace Expendedora
             set { this._volumen = value; }
         }
 
-      
         public string Nombre
         {
             get
             { return this._nombre; }
             set { this._nombre = value; }
         }
-        /*public string DevuelveLata()
+       /* public string DevuelveLata()
         {
-            int stock = getStockxDato();
-            return string.Format("Codigo {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n Stock {5}", this._codigo, this._nombre, this._sabor, this._precio, this._volumen, stock);
+            
+            return string.Format("Codigo {0}\nNombre {1}\n Sabor {2}\n precio {3}\n volumen {4}\n", this._codigo, this._nombre, this._sabor, this._precio, this._volumen);
         }*/
+        
         public override string ToString()
         {
             return string.Format("Nombre {0}\nSabor {1}\n$/L Precio por litro {0}", this._nombre, this._sabor, this._precio);
         }
-       
-
     }
 }
