@@ -12,6 +12,7 @@ namespace Expendedora
         private const int _capacidad = 3;
         private double _dinero;
         private bool _encendida;
+        private double _vuelto;
         private List<Lata> _latas;
         private List<DatoLata> _datoslatas;
         private bool llena;
@@ -40,6 +41,15 @@ namespace Expendedora
             set
             {
                 this._dinero = value;
+            }
+        }
+        public double Vuelto
+        {
+            get
+            { return this._vuelto; }
+            set
+            {
+                this._vuelto = value;
             }
         }
         public int Capacidad
@@ -90,8 +100,17 @@ namespace Expendedora
         }
         public void AgregarLata(Lata lata)
         {
-            _latas.Add(lata);
-            Console.WriteLine(getStockByCodigo(lata.Codigo));
+            if (GetCapacidadRestante() != 0)
+            {
+                _latas.Add(lata);
+                Console.WriteLine(getStockByCodigo(lata.Codigo));
+            }
+            else
+            {
+                throw new CapacidadInsuficienteException();
+            }
+            
+            
         }
         public bool CapacidadDisponible()
         {
@@ -111,52 +130,66 @@ namespace Expendedora
         }
         public Lata ExtraerLata(string codigo, double plata)
         {
-            //Lata lata = null;
+
             Lata latita = conseguirUltimaLataStockXCodigo(codigo);
 
-            //for (int i = 0; i < getStockByCodigo(codigo); i++)
-            //{
-                if (plata >= latita.Precio )
+            if (plata >= latita.Precio)
+            {
+                int pos = _latas.FindLastIndex(delegate (Lata lata)
                 {
-                     int pos = _latas.FindLastIndex(delegate (Lata lata) {
-                        return lata.Codigo == codigo;
-                    });
+                    return lata.Codigo == codigo;
+                });
 
-                    Dinero = Dinero + plata;
-                    //lata = _latas[i];
-                    _latas.RemoveAt(pos);
-                    Console.WriteLine(getStockByCodigo(codigo));
-                }
-                else
-                {
-                    latita = null;
-                }
-              
-            //}
+                Dinero = Dinero + latita.Precio;
+                Vuelto = plata - latita.Precio;
+                _latas.RemoveAt(pos);
+                Console.WriteLine(getStockByCodigo(codigo));
+            }
+            else
+            {
+                latita = null;
+            }
 
             return latita;
         }
-        
-          public string GetBalance()
-          {
-            return "El dinero que tiene la expendedora es " + Dinero + " y tiene " + _latas.Count + " latas"; 
-          }
-        /*  public int GetCapacidadRestante()
-          {
 
-          }
-          
+        public string GetBalance()
+        {
+            return "El dinero que tiene la expendedora es " + Dinero + " y tiene " + _latas.Count + " latas";
+        }
+        public string MuestroStock()
+        {
+            string lista = "";
+            if (!Estavacia())
+            {
+                foreach (Lata lata in _latas)
+                {
+                    lista = lista + lata.DevuelveLata() + "\n" + lata.ToString() + "\n";
+                }
+            }
+            else
+            {
+                lista = "La expendedora se encuentra vacia";
+            }
+            
+            return lista;
+        }
+        public int GetCapacidadRestante()
+        {
+            return Capacidad - _latas.Count;
+        }
+
         public bool Estavacia()
         {
 
-          if (this._capacidad == 0)
-              llena = true;
-          else
-              llena = false;
+            if (CapacidadDisponible())
+                llena = true;
+            else
+                llena = false;
 
-          return llena;
+            return llena;
         }
-        */
+        
         private void DatosLata()
         {
             _datoslatas.Add(new DatoLata("CO1", "Coca Cola", "Regular"));

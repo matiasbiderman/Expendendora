@@ -168,6 +168,7 @@ namespace Expendedora
                     {
                         
                        Console.WriteLine("la lata que esta agarrand es " + lata.Codigo + " con un precio de " + lata.Precio);
+                        Console.WriteLine("Su vuelto es " + exp.Vuelto);
                         Console.WriteLine("el dinero acumulado por la expendedora es " + exp.Dinero);
                     }
                 }
@@ -187,7 +188,7 @@ namespace Expendedora
         }
         private static void MostrarStock(Expendedora exp)
         {
-
+            Console.WriteLine(exp.MuestroStock());
         }
     }
 }
