@@ -108,9 +108,7 @@ namespace Expendedora
             else
             {
                 throw new CapacidadInsuficienteException();
-            }
-            
-            
+            }           
         }
         public bool CapacidadDisponible()
         {
@@ -132,7 +130,6 @@ namespace Expendedora
         {
 
             Lata latita = conseguirUltimaLataStockXCodigo(codigo);
-
             if (plata >= latita.Precio)
             {
                 int pos = _latas.FindLastIndex(delegate (Lata lata)
