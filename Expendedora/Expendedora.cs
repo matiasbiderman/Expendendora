@@ -33,7 +33,6 @@ namespace Expendedora
             this._datoslatas = new List<DatoLata>();
             DatosLata();
         }
-
         public double Dinero
         {
             get
@@ -80,20 +79,16 @@ namespace Expendedora
         }
         public DatoLata ValidoCodigo(string codigo)
         {
-            //  DatoLata dato;
             bool encuentra = false;
-            int pos = 0;
             for (int i = 0; i < _datoslatas.Count; i++)
             {
                 if (codigo == _datoslatas[i].Codigodato)
                 {
-                    //pos = i;
                     return _datoslatas[i];
                 }
             }
             return null;
         }
-
         public int getStockByCodigo(string codigo)
         {
             return _latas.Where(l => l.Codigo == codigo).Count();
@@ -114,22 +109,21 @@ namespace Expendedora
         {
             return Capacidad > _latas.Count;
         }
-        public Lata conseguirUltimaLataStockXCodigo(string codigo)
+        public Lata getUltimaLataStockByCodigo(string codigo)
         {
             Lata ultimaLata = new Lata();
-            foreach (Lata lataABuscar in _latas)
+            foreach (Lata lata in _latas)
             {
-                if (lataABuscar.Codigo == codigo)
+                if (lata.Codigo == codigo)
                 {
-                    ultimaLata = lataABuscar;
+                    ultimaLata = lata;
                 }
             }
             return ultimaLata;
         }
         public Lata ExtraerLata(string codigo, double plata)
         {
-
-            Lata latita = conseguirUltimaLataStockXCodigo(codigo);
+            Lata latita = getUltimaLataStockByCodigo(codigo);
             if (plata >= latita.Precio)
             {
                 int pos = _latas.FindLastIndex(delegate (Lata lata)
@@ -146,10 +140,8 @@ namespace Expendedora
             {
                 latita = null;
             }
-
             return latita;
         }
-
         public string GetBalance()
         {
             return "El dinero que tiene la expendedora es " + Dinero + " y tiene " + _latas.Count + " latas";
@@ -196,6 +188,5 @@ namespace Expendedora
             _datoslatas.Add(new DatoLata("FA1", "Fanta", "Regular"));
             _datoslatas.Add(new DatoLata("FA2", "Fanta", "Zero"));
         }
-
     }
 }
